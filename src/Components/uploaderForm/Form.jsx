@@ -10,10 +10,16 @@ const Form = () => {
     const ttfFiles = acceptedFiles.filter((file) => file.name.endsWith(".ttf"));
 
     if (ttfFiles.length === 0) {
-      setWarningMessage("Please select a valid TTF file.");
+      setWarningMessage("Select valid TTF file to continue.");
     } else {
       setSelectedFiles(ttfFiles);
       setWarningMessage("");
+
+      const formData = new FormData();
+      console.log("🚀 ~ file: Form.jsx:19 ~ onDrop ~ formData:", formData)
+      ttfFiles.forEach((file) => {
+        formData.append("fonts[]", file);
+      });
     }
   };
 
@@ -34,8 +40,11 @@ const Form = () => {
             <FaCloudUploadAlt />
           </h1>
           <h1>Click to upload or drag and drop.</h1>
-          <h1 className="text-xs bold">Only TTF File Allowed.</h1>
+          <h1 className="text-xs font-extrabold">
+            Only TTF format files are allowed.
+          </h1>
         </div>
+        <p className="text-xs font-bold text-red-600 ">{warningMessage}</p>
       </form>
     </div>
   );
