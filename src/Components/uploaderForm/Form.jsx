@@ -16,17 +16,19 @@ const Form = () => {
       setWarningMessage("");
 
       const formData = new FormData();
-      console.log("🚀 ~ file: Form.jsx:19 ~ onDrop ~ formData:", formData)
       ttfFiles.forEach((file) => {
         formData.append("fonts[]", file);
       });
     }
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     onDrop,
+    noClick: true,
     accept: ".ttf",
   });
+
+  console.log(selectedFiles);
 
   return (
     <div className="h-screen flex items-center justify-center ">
@@ -39,7 +41,14 @@ const Form = () => {
           <h1 className="text-7xl">
             <FaCloudUploadAlt />
           </h1>
-          <h1>Click to upload or drag and drop.</h1>
+          <h1>Click the button to upload or drag and drop.</h1>
+          <button
+            className="btn btn-wide my-5 hover:bg-blue-500  hover:text-white"
+            type="button"
+            onClick={open}
+          >
+            Open
+          </button>
           <h1 className="text-xs font-extrabold">
             Only TTF format files are allowed.
           </h1>
